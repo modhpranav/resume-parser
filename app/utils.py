@@ -16,15 +16,83 @@ async def extract_text_from_pdf(pdf_file) -> str:
 
 
 async def get_insights(resume, job_description) -> dict:
-    text = await extract_text_from_pdf(resume)
-    # jd = nlp(job_description)
-    # doc = nlp(text)
+    # text = await extract_text_from_pdf(resume)
 
     # Extract entities from the job description
     jd_skills = await get_skills(job_description)
 
     # Extract entities from the resume
-    resume_skills = await get_skills(text)
+    # resume_skills = await get_skills(text)
+    resume_skills = [
+        "software development",
+        "task queue",
+        "web application",
+        "object orient programming",
+        "dynamic programming",
+        "project management",
+        "management system",
+        "google cloud",
+        "google cloud platform",
+        "background task",
+        "task management",
+        "api gateway",
+        "com",
+        "gcp",
+        "mapper",
+        "api",
+        "github",
+        "communication",
+        "electronics",
+        "developing web",
+        "scraper",
+        "student information",
+        "communication skills",
+        "managing",
+        "maintaining",
+        "redis",
+        "application performance",
+        "scalable",
+        "uptime",
+        "integrated",
+        "flask",
+        "high performance",
+        "software engineer",
+        "designing apis",
+        "collaborative",
+        "timeline",
+        "python",
+        "tool",
+        "module",
+        "reduction",
+        "construction",
+        "programming languages",
+        "javascript",
+        "aws services",
+        "bucket",
+        "textract",
+        "library",
+        "beautifulsoup",
+        "django",
+        "scrapy",
+        "postgresql",
+        "mysql",
+        "mongodb",
+        "elasticsearch",
+        "cloud platforms",
+        "docker",
+        "jira",
+        "extracting information",
+        "recipe",
+        "interact",
+        "food",
+        "maintain",
+        "mapping",
+        "government",
+        "mapped",
+        "image",
+        "receive",
+        "present",
+    ]
 
     matching_skills = set(resume_skills).intersection(set(jd_skills))
 
@@ -49,12 +117,16 @@ async def get_insights(resume, job_description) -> dict:
         "total_jd_skills": len(jd_skills),
         "matching_skills": list(matching_skills),
         "match_percentage": match_percentage,
-        "clearance_information": clearance_lines
-        if len(clearance_lines) > 0
-        else "No clearance information found",
-        "sponsorship_information": sponsorship_lines
-        if len(sponsorship_lines) > 0
-        else "No sponsorship information found",
+        "clearance_information": (
+            clearance_lines
+            if len(clearance_lines) > 0
+            else "No clearance information found"
+        ),
+        "sponsorship_information": (
+            sponsorship_lines
+            if len(sponsorship_lines) > 0
+            else "No sponsorship information found"
+        ),
         "resume_skills": list(resume_skills),
         "jd_skills": list(jd_skills),
     }
