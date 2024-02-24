@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+{% block sidebar %}
+<aside id="sidebar" class="sidebar">
+<ul class="sidebar-nav" id="sidebar-nav">
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ '/my-resume' }}">
+      <i class="bi bi-grid"></i>
+      <span>My Resume</span>
+    </a>
+  </li><!-- End Dashboard Nav -->
+
+  <li class="nav-heading">Features</li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{ '/job-desc' }}">
+      <i class="bi bi-card-list"></i>
+      <span>Scan Job Description</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="">
+      <i class="bi bi-envelope"></i>
+      <span>Contact Us</span>
+    </a>
+  </li><!-- End Contact Page Nav -->
+</ul><!-- End Sidebar Nav -->
+</aside>
+{% endblock %}
+
+{% block content %}
+
+<div class="pagetitle">
+  <h1>Job Research</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item">Scan Job Description</li>
+    </ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">We know extraction speed sucks, we are working on scaling!!</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Enter Job Details</h4>
+            <form class="row g-3">
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Address" id="jobDesc" style="height: 100px;"></textarea>
+                  <label for="floatingTextarea">About Job. . .</label>
+                </div>
+              </div>
+            <div class="text-center">
+              <button id="getJDTextButton" class="btn btn-primary">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" hidden></span>
+                Extract Skills Required</button>
+              <button name="reset" type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="jd-skills" hidden>
+        <div class="card-body" id="skillsdownload">
+          <button onclick="downloadSkillsAsCSV()" class="btn btn-primary">
+            <i class="bi bi-arrow-down-circle"></i> Download Skills
+          </button>
+          <div class="row-mb-3" id="extractedjdSkills">
+            <!-- Skills will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script src="/staticfiles/assets/js/get-skills.js"></script>
+{% endblock %}

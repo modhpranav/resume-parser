@@ -1,0 +1,64 @@
+.skill-button {
+    margin: 5px;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.skill-button:hover {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    background-color: red !important; /* Overrides the random background color on hover */
+}
+
+.skill-remove {
+    cursor: pointer;
+    margin-left: 5px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  #main {
+    flex: 1;
+  }
+  
+  .footer {
+    margin-top: auto;
+  }
+  .skills-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end; /* Align items to the right */
+    margin-right: 20px; /* Adjust as needed */
+  }
+  
+  /* Style for the title */
+  .skill-title {
+    margin-bottom: 10px; /* Space between the title and the button */
+    color: #333; /* Adjust the color as needed */
+  }
+  
+  /* Download button specific styles */
+  .download-button {
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #007bff; /* Bootstrap primary color, adjust as needed */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3; /* Darker shade for hover, adjust as needed */
+  }
