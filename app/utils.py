@@ -5,94 +5,20 @@ from nltk.stem import WordNetLemmatizer
 
 
 async def extract_text_from_pdf(pdf_file) -> str:
-    # Read PDF file into bytes
-    pdf_bytes = await pdf_file.read()
-    pdf_io = io.BytesIO(pdf_bytes)
 
     # Extract text from PDF
-    text = extract_text(pdf_io)
-
+    text = extract_text(pdf_file)
     return text
 
 
 async def get_insights(resume, job_description) -> dict:
-    # text = await extract_text_from_pdf(resume)
+    text = await extract_text_from_pdf(resume)
 
     # Extract entities from the job description
     jd_skills = await get_skills(job_description)
 
     # Extract entities from the resume
-    # resume_skills = await get_skills(text)
-    resume_skills = [
-        "software development",
-        "task queue",
-        "web application",
-        "object orient programming",
-        "dynamic programming",
-        "project management",
-        "management system",
-        "google cloud",
-        "google cloud platform",
-        "background task",
-        "task management",
-        "api gateway",
-        "com",
-        "gcp",
-        "mapper",
-        "api",
-        "github",
-        "communication",
-        "electronics",
-        "developing web",
-        "scraper",
-        "student information",
-        "communication skills",
-        "managing",
-        "maintaining",
-        "redis",
-        "application performance",
-        "scalable",
-        "uptime",
-        "integrated",
-        "flask",
-        "high performance",
-        "software engineer",
-        "designing apis",
-        "collaborative",
-        "timeline",
-        "python",
-        "tool",
-        "module",
-        "reduction",
-        "construction",
-        "programming languages",
-        "javascript",
-        "aws services",
-        "bucket",
-        "textract",
-        "library",
-        "beautifulsoup",
-        "django",
-        "scrapy",
-        "postgresql",
-        "mysql",
-        "mongodb",
-        "elasticsearch",
-        "cloud platforms",
-        "docker",
-        "jira",
-        "extracting information",
-        "recipe",
-        "interact",
-        "food",
-        "maintain",
-        "mapping",
-        "government",
-        "mapped",
-        "image",
-        "receive",
-        "present",
-    ]
+    resume_skills = await get_skills(text)
 
     matching_skills = set(resume_skills).intersection(set(jd_skills))
 
@@ -134,7 +60,7 @@ async def get_insights(resume, job_description) -> dict:
     return insights
 
 
-async def get_skills(text):
+async def extract_skills(text):
     annotations = skill_extractor.annotate(text)
     full_matchskills = [
         x["doc_node_value"]
@@ -164,5 +90,4 @@ async def remove_redundancy(words):
     # Remove duplicates while preserving order
     seen = set()
     result = [word for word in cleaned_words if not (word in seen or seen.add(word))]
-
     return result
