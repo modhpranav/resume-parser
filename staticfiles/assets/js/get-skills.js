@@ -22,10 +22,15 @@ document.getElementById('getJDTextButton').addEventListener('click', async funct
       textInput.value = textInput.value; // Clear the input
 
       const jdskills = document.querySelector('.jd-skills');
-      jdskills.hidden = false;
+      if (document.querySelectorAll('.skill-button').length > 0){
 
-      submitbutton.disabled = false;
-      spinner.hidden = true;
+          jdskills.hidden = false;
+          submitbutton.disabled = false;
+          spinner.hidden = true;
+      }else{
+        submitbutton.disabled = false;
+        spinner.hidden = true;
+      }
 
     
 

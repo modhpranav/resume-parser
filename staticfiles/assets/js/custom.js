@@ -25,11 +25,11 @@ function addskills(result, skillsContainer){
 }
 
 function downloadSkillsAsCSV() {
-    const skills = document.querySelectorAll('#extractedSkills .skill-button');
+    const skills = document.querySelectorAll('.skill-button');
     let csvContent = "data:text/csv;charset=utf-8,";
   
     // Header row
-    csvContent += "Skill Name\r\n";
+    csvContent += "Skills\r\n";
   
     // Data rows
     skills.forEach(skillButton => {
@@ -48,3 +48,65 @@ function downloadSkillsAsCSV() {
   
     document.body.removeChild(link); // Clean up
   }
+
+  function previewPDF(submitButton, spinner, uparrow, result){
+    document.getElementById('pdfpreviewdiv').hidden = false;
+    const pdfPreviewContainer = document.getElementById('pdfPreview');
+    pdfPreviewContainer.src = result.pdf_path;
+    submitButton.disabled = false;
+    spinner.hidden = true;
+    uparrow.hidden = false;
+}
+
+
+async function getSkills(){
+
+    if (localStorage.getItem('pdf_path') == ''){
+        alert('Please upload a resume first');
+        return;
+    }
+    const spinner = document.querySelector('.spinner-grow');
+    const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
+    const uparrow = document.querySelector('#uploadarrow');
+    const extractbutton = document.querySelector('.extractskillsbutton');
+    const downloadcsv = document.querySelector('#downloadcsv');
+    
+    // Show spinner, hide arrow, disable button
+    submitButton.disabled = true;
+    spinner.hidden = false;
+    uparrow.hidden = true;
+    extractbutton.disabled = true;
+
+    const response = await fetch('/get-skills/', {
+        method: 'POST',
+        body: JSON.stringify({text: localStorage.getItem('resume_text')}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    try{
+        if (response.ok) {
+            const result = await response.json();
+            const skillsContainer = document.getElementById('extractedSkills');
+            skillsContainer.innerHTML = '';
+            addskills(result, skillsContainer);
+            submitButton.disabled = false;
+            spinner.hidden = true;
+            uparrow.hidden = false;
+            extractbutton.disabled = false;
+            downloadcsv.hidden = false;
+        }else{
+            alert('Failed to extract skills');
+            submitButton.disabled = false;
+            spinner.hidden = true;
+            uparrow.hidden = false;
+            extractbutton.disabled = false;
+        }
+    }catch{
+        alert('Failed to extract skills');
+        submitButton.disabled = false;
+        spinner.hidden = true;
+        uparrow.hidden = false;
+        extractbutton.disabled = false;
+    }
+}

@@ -1,0 +1,155 @@
+{% extends 'index.html' %}
+{% block sidebar %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{{ '/my-resume' }}">
+        <i class="bi bi-grid"></i>
+        <span>My Resume</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-heading">Features</li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="{{ '/get-insights' }}">
+        <i class="bi bi-envelope"></i>
+        <span>Insights</span>
+      </a>
+    </li><!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{{ '/job-desc' }}">
+        <i class="bi bi-card-list"></i>
+        <span>Scan Job Description</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+
+  </ul><!-- End Sidebar Nav -->
+</aside>
+{% endblock %}
+
+{% block content %}
+
+<section class="section dashboard">
+  <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-8">
+      <div class="row">
+
+        <!-- Sales Card -->
+        <div class="col-xxl-4 col-md-6 insightcards" hidden>
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Skill Match</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-percent"></i>
+                </div>
+                <div class="ps-3">
+                  <h6 class="matchpercent">$3,264</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Match Percentage End -->
+        <!-- Clearance Information -->
+        <div class="col-xxl-4 col-md-6 insightcards" hidden>
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Security Clearance</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-shield-lock"></i>
+                </div>
+                <div class="ps-3">
+                  <h6 class="clearance">Unknown</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Clearance Information End -->
+        <!-- Sponsorship Information -->
+        <div class="col-xxl-4 col-md-6 insightcards" hidden>
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Sponsorship</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="ps-3">
+                  <h6 class="sponsorship">Unknown</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sponsorship Information End -->
+        <!-- Reports -->
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Enter Job Details</h4>
+                <form class="row g-3">
+                  <div class="col-12">
+                    <div class="form-floating">
+                      <textarea class="form-control" placeholder="About Job. . ." id="jobdescription"
+                        style="height: 100px;"></textarea>
+                      <label for="floatingTextarea">About Job. . .</label>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button id="getinsights" class="btn btn-primary">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" hidden></span>
+                      Analyze</button>
+                    <button name="reset" type="reset" class="btn btn-secondary">Reset</button>
+                  </div>
+                </form>
+            </div>
+
+          </div>
+        </div><!-- End Reports -->
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4 insightcards" hidden>
+       <div class="card">
+        <div class="filter">
+          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li><a class="dropdown-item" onclick="downloadSkillsAsCSV()">Download as CSV</a></li>
+          </ul>
+        </div>
+            <div class="card-body">
+              <h5 class="card-title">Skills Information</h5>
+
+              <!-- Default Accordion -->
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Skills in JD but not in your resume">
+                    <button class="accordion-button unmatchedskillcount collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Total: 30
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapsed" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body unmatchedskills">
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Default Accordion Example -->
+
+            </div>
+          </div>
+    </div>
+</section>
+<script src="/staticfiles/assets/js/resume-insights.js"></script>
+
+{% endblock %}

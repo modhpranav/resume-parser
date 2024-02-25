@@ -14,18 +14,19 @@
   <li class="nav-heading">Features</li>
 
   <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ '/get-insights' }}">
+      <i class="bi bi-envelope"></i>
+      <span>Insights</span>
+    </a>
+  </li><!-- End Contact Page Nav -->
+
+  <li class="nav-item">
     <a class="nav-link collapsed" href="{{ '/job-desc' }}">
       <i class="bi bi-card-list"></i>
       <span>Scan Job Description</span>
     </a>
   </li><!-- End Profile Page Nav -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="">
-      <i class="bi bi-envelope"></i>
-      <span>Contact Us</span>
-    </a>
-  </li><!-- End Contact Page Nav -->
 </ul><!-- End Sidebar Nav -->
 </aside>
 {% endblock %}
@@ -75,10 +76,14 @@
     <div class="col-lg-6" id="skills">
       <div>
         <div class="card-body" id="skillsdownload">
-          <button onclick="downloadSkillsAsCSV()" class="btn btn-primary">
-            <i class="bi bi-arrow-down-circle col-sm-3" id="uploadarrow"></i> Download
-            <div class="row-mb-3" id="extractedSkills">
-            </div>
+          <div></div>
+          <button onclick="getSkills()" class="btn btn-primary extractskillsbutton">
+            Extract Skills
+          </button>
+          <button onclick="downloadSkillsAsCSV()" class="btn btn-primary" id="downloadcsv" hidden>
+            <i class="bi bi-arrow-down-circle col-sm-3"></i> Download
+          </button>
+            <div class="row-mb-3" id="extractedSkills"></div>
         </div>
       </div>
     </div>

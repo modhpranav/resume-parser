@@ -6,14 +6,12 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     const spinner = document.querySelector('.spinner-grow');
     const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
     const uparrow = document.querySelector('#uploadarrow');
-    
     // Show spinner, hide arrow, disable button
     submitButton.disabled = true;
     spinner.hidden = false;
-    uparrow.hidden = true;
-    console.log('Uploading file...');
+    localStorage.setItem('pdf_path', '');
     // Adjust the URL as per your API endpoint
-    const response = await fetch('/parse-pdf/', {
+    const response = await fetch('/upload-pdf/', {
         method: 'POST',
         body: formData,
     });
@@ -21,22 +19,25 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     if (response.ok) {
         const result = await response.json();
 
-        // Clear previous skills
-        const skillsContainer = document.getElementById('skills');
-        document.getElementById('extractedSkills').innerHTML = '';
-        addskills(result, skillsContainer);
-
         // Display PDF preview
-        document.getElementById('pdfpreviewdiv').hidden = false;
-        const pdfPreviewContainer = document.getElementById('pdfPreview');
-        pdfPreviewContainer.src = result.pdf_path;
-        submitButton.disabled = false;
-        spinner.hidden = true;
-        uparrow.hidden = false;
+        localStorage.setItem('pdf_path', result.pdf_path);
+        previewPDF(submitButton, spinner, uparrow, result);
+        localStorage.setItem('resume_text', result.resume_text);
+        
     } else {
         alert('Failed to parse PDF.');
         submitButton.disabled = false;
         spinner.hidden = true;
         uparrow.hidden = false;
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('pdf_path') != ''){
+        const spinner = document.querySelector('.spinner-grow');
+        const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
+        const uparrow = document.querySelector('#uploadarrow');
+        const result = {pdf_path: localStorage.getItem('pdf_path')};
+        previewPDF(submitButton, spinner, uparrow, result);
     }
 });
