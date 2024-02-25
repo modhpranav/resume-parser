@@ -49,7 +49,7 @@ function downloadSkillsAsCSV() {
     document.body.removeChild(link); // Clean up
   }
 
-  function previewPDF(submitButton, spinner, uparrow, result){
+function previewPDF(submitButton, spinner, uparrow, result){
     document.getElementById('pdfpreviewdiv').hidden = false;
     const pdfPreviewContainer = document.getElementById('pdfPreview');
     pdfPreviewContainer.src = result.pdf_path;

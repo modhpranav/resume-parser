@@ -16,7 +16,7 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="{{ '/get-insights' }}">
       <i class="bi bi-envelope"></i>
-      <span>Insights</span>
+      <span>Job Analysis</span>
     </a>
   </li><!-- End Contact Page Nav -->
 
@@ -34,17 +34,17 @@
 {% block content %}
 
 <div class="pagetitle">
-  <h1>Resume</h1>
+  <h1>YaY!! Finally We Met, Go Ahead . . .</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{ '/' }}">Home</a></li>
       <li class="breadcrumb-item active">My Resume</li>
     </ol>
     <form method="post" id="uploadForm" enctype="multipart/form-data">
 
       <div class="row mb-3">
         <div class="col-sm-5">
-          <input class="form-control" action="/parse-pdf" type="file" id="formFile" name="pdf_file">
+          <input class="form-control" action="/parse-pdf" type="file" id="formFile" name="pdf_file" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Upload Your Resume">
         </div>
         <div class="col-sm-3">
           <button type="submit" id="submit" class="btn btn-primary">

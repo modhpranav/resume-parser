@@ -33,7 +33,8 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('pdf_path') != ''){
+    console.log(localStorage.getItem('pdf_path'));
+    if (localStorage.getItem('pdf_path') != null){
         const spinner = document.querySelector('.spinner-grow');
         const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
         const uparrow = document.querySelector('#uploadarrow');
