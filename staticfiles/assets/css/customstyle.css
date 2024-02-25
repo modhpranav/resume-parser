@@ -20,45 +20,72 @@
 html, body {
     height: 100%;
     margin: 0;
-  }
+}
   
-  body {
+body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
+}
   
-  #main {
+#main {
     flex: 1;
-  }
+}
   
-  .footer {
-    margin-top: auto;
-  }
-  .skills-container {
-    display: flex;
-    flex-direction: column;
-    align-items: end; /* Align items to the right */
-    margin-right: 20px; /* Adjust as needed */
-  }
+.footer {
+  margin-top: auto;
+}
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  align-items: end; /* Align items to the right */
+  margin-right: 20px; /* Adjust as needed */
+}
+
+/* Style for the title */
+.skill-title {
+  margin-bottom: 10px; /* Space between the title and the button */
+  color: #333; /* Adjust the color as needed */
+}
+
+/* Download button specific styles */
+.download-button {
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  color: white;
+  background-color: #007bff; /* Bootstrap primary color, adjust as needed */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #0056b3; /* Darker shade for hover, adjust as needed */
+}
+
+.unmatchedskills {
+    height: 300px; /* Set the height of the container */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    padding: 10px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a border */
+}
+
+  /* Custom scrollbar styles */
+.unmatchedskills::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: #fff;
+}
   
-  /* Style for the title */
-  .skill-title {
-    margin-bottom: 10px; /* Space between the title and the button */
-    color: #333; /* Adjust the color as needed */
-  }
-  
-  /* Download button specific styles */
-  .download-button {
-    border: none;
-    border-radius: 20px;
-    padding: 5px 10px;
-    color: white;
-    background-color: #007bff; /* Bootstrap primary color, adjust as needed */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .download-button:hover {
-    background-color: #0056b3; /* Darker shade for hover, adjust as needed */
-  }
+.unmatchedskills::-webkit-scrollbar-thumb {
+    background-color: #aab7cf;
+}
+
+.dashboard .info-card h6 {
+  font-size: 25px;
+}
+.sponsorshipcss{
+  font-size: 25px;
+  color: #2eca6a;
+  background: #e0f8e9;
+}

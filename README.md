@@ -3,10 +3,13 @@
 ## Overview
 Resume Parser is a web application designed to streamline the recruitment process by extracting skills from PDF resumes and comparing them against job descriptions. This tool provides insights such as matched skills, the percentage of match, and unmatched skills, aiding recruiters in making informed decisions.
 
+## Web URL
+**[ResumeParser](http://13.233.142.200:8000/)**
+
 ## Features
 - **Skill Extraction**: Automatically extracts skills from PDF resumes.
-- **Skill Matching**: Compares extracted skills against job descriptions to identify matches.
-- **Insightful Analytics**: Provides detailed analytics, including matched and unmatched skills and the percentage of match.
+- **Skill Matching**: Compares extracted skills against job descriptions to identify skills required.
+- **Insightful Analytics**: Provides detailed analytics, including matched/unmatched skills and the percentage of match.
 
 ## Requirements
 This project is built using Python and FastAPI, and it's containerized with Docker. The following are major dependencies:
@@ -49,7 +52,7 @@ For a complete list of dependencies, refer to the `requirements.txt` file.
 2. The application will analyze the documents and display the matched skills, unmatched skills, and the percentage of match.
 
 ## Deployment
-This application is deployed on Heroku. For deploying your instance, follow the standard Heroku deployment steps, ensuring your Docker environment is properly set up for Heroku's container registry.
+This application is deployed on EC2. For deploying your instance, follow the standard Heroku deployment steps, ensuring your Docker environment is properly set up for AWS EC2.
 
 ## Contributing
 Contributions are welcome! Please fork the repository and open a pull request with your improvements.
