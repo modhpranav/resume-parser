@@ -69,3 +69,4 @@ wasabi==1.1.2
 wcwidth==0.2.13
 weasel==0.3.4
 itsdangerous==2.1.2
+rapidfuzz==3.6.1

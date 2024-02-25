@@ -53,7 +53,7 @@ async def parse_pdf(request: Request, pdf_file: UploadFile = File(...)):
         with open(save_path, "wb") as buffer:
             shutil.copyfileobj(pdf_file.file, buffer)
         request.session["file_path"] = f"/{save_path}"
-
+        print(request.session["file_path"])
         print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         text = await extract_text_from_pdf(save_path)
         request.session["resume_text"] = text
@@ -83,12 +83,12 @@ async def analyze_match(
 
 @app.post("/get-skills/")
 async def get_skills_from_text(
-    request: Request, text: Optional[str] = Body(..., embed=True)
+    request: Request, text: Optional[str] = Body(..., embed=True), text_type: Optional[str] = "resume"
 ):
     try:
         if not text:
             text = request.session["resume_text"]
-        skills = await extract_skills(text)
+        skills = await extract_skills(text, text_type)
         return JSONResponse(content={"skills": skills}, media_type="application/json")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
