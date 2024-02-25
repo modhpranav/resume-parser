@@ -1,6 +1,7 @@
 import spacy
 import nltk
 import pandas as pd
+import os
 from spacy.matcher import PhraseMatcher
 
 # load default skills data base
@@ -8,6 +9,9 @@ from skillNer.general_params import SKILL_DB
 
 # import skill extractor
 from skillNer.skill_extractor_class import SkillExtractor
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 # init skill extractor
 nlp = spacy.load("en_core_web_lg")

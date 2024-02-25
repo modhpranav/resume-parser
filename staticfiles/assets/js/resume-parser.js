@@ -9,7 +9,6 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     // Show spinner, hide arrow, disable button
     submitButton.disabled = true;
     spinner.hidden = false;
-    localStorage.setItem('pdf_path', '');
     // Adjust the URL as per your API endpoint
     const response = await fetch('/upload-pdf/', {
         method: 'POST',
@@ -18,11 +17,19 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     
     if (response.ok) {
         const result = await response.json();
-
+        
         // Display PDF preview
-        localStorage.setItem('pdf_path', result.pdf_path);
         previewPDF(submitButton, spinner, uparrow, result);
-        localStorage.setItem('resume_text', result.resume_text);
+        sessionStorage.setItem('pdf_path', result.pdf_path);
+        const displayname = result.pdf_path.split('/').pop();
+        console.log(displayname);
+        const resumenametags = document.getElementsByClassName('resumename')
+        for (let i = 0; i < resumenametags.length; i++){
+            resumenametags[i].innerHTML = `Uploaded Resume Name: ${displayname}`;
+        }
+        sessionStorage.setItem('resume_text', result.resume_text);
+        document.getElementById('downloadcsv').hidden = true;
+        document.getElementById('extractedSkills').innerHTML = '';
         
     } else {
         alert('Failed to parse PDF.');
@@ -33,12 +40,12 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(localStorage.getItem('pdf_path'));
-    if (localStorage.getItem('pdf_path') != null){
+    console.log(sessionStorage.getItem('pdf_path'));
+    if (sessionStorage.getItem('pdf_path') != null){
         const spinner = document.querySelector('.spinner-grow');
         const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
         const uparrow = document.querySelector('#uploadarrow');
-        const result = {pdf_path: localStorage.getItem('pdf_path')};
+        const result = {pdf_path: sessionStorage.getItem('pdf_path')};
         previewPDF(submitButton, spinner, uparrow, result);
     }
 });

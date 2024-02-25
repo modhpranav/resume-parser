@@ -7,8 +7,8 @@ document.getElementById('getinsights').addEventListener('click', async function(
     const resetButton = document.getElementsByName('reset')[0];
 
 
-    const resumePath = localStorage.getItem('pdf_path');
-    const resumeText = localStorage.getItem('resume_text');
+    const resumePath = sessionStorage.getItem('pdf_path');
+    const resumeText = sessionStorage.getItem('resume_text');
     const jobDescription = jobDescriptionTextarea.value.trim();
 
     if (!resumePath || jobDescription === "") {
