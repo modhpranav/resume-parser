@@ -152,5 +152,8 @@
         "docker",
         "aws",
         "java"
+    ],
+    "c986051d5a70dea78a396fea07e7e220ba96c190ea5969da84001af54b76016c": [
+        "python"
     ]
 }

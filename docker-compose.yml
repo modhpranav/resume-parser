@@ -4,5 +4,19 @@ services:
     build: .
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     container_name: resume_parser_web
+    volumes:
+      - ./uploads:/src/staticfiles/uploads
+      - ./app/config:/src/app/config
     ports:
       - "8000:8000"
+  
+  pgdb:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: pranav
+      POSTGRES_PASSWORD: admin@123
+      POSTGRES_DB: mydatabase
+volumes:
+  postgres_data:

@@ -71,3 +71,7 @@ wcwidth==0.2.13
 weasel==0.3.4
 itsdangerous==2.1.2
 rapidfuzz==3.6.1
+sqlalchemy
+psycopg2-binary
+passlib
+fastapi-sso==0.11.0
