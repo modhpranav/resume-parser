@@ -16,7 +16,7 @@ function addskills(result, skillsContainer){
 
         // Add event listener for the remove span
         skillButton.querySelector('.skill-remove').addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevents the click from triggering on the button itself
+            // event.stopPropagation(); // Prevents the click from triggering on the button itself
             skillButton.remove(); // Removes the skill button
         });
 
@@ -121,3 +121,55 @@ window.onload = function() {
         }
     }
 }
+
+function downloadAppliAsCSV() {
+    const dataToDownload = []; // This array will hold your data rows
+
+    // Assuming 'data' is your full dataset you want to download
+    // If you want to download only visible/filtered data, adjust to fetch those rows
+    data.forEach(row => {
+        const rowData = [
+            row['Application Date'],
+            row['Application Link'],
+            row['Company Name'],
+            row['Job Description'],
+            row['Job Title'],
+            row['Status']
+        ];
+        dataToDownload.push(rowData.join(',')); // Convert each row's data into a comma-separated string
+    });
+
+    // Add CSV Header
+    const csvHeader = "Application Date,Application Link,Company Name,Job Description,Job Title,Status";
+    dataToDownload.unshift(csvHeader); // Add header at the beginning of the array
+
+    // Create Blob from data
+    const csvBlob = new Blob([dataToDownload.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(csvBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'job_applications.csv'; // Name of the file to be downloaded
+    document.body.appendChild(link); // Required for Firefox
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+function alertMessage(message) {
+      // Display the notification
+        const notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = 'alert alert-success alert-dismissible fade hide notification';
+        notification.textContent = message;
+        notification.classList.add('notification-show');
+        notification.classList.remove('hide');
+        notification.classList.add('show');
+        document.body.appendChild(notification);
+        
+        // Hide the notification after 3 seconds
+        setTimeout(() => {
+          notification.classList.remove('notification-show');
+          notification.classList.add('hide');
+          notification.classList.remove('show');
+        }, 3000);
+  }

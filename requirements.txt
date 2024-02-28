@@ -75,3 +75,6 @@ sqlalchemy
 psycopg2-binary
 passlib
 fastapi-sso==0.11.0
+pymongo
+alembic
+python-jose==3.3.0

@@ -2,14 +2,15 @@ import logging
 
 from app.utils.parsing import Parser
 
+
 class InsightAnalysis:
     def __init__(self, text, job_description):
         self.text = text
         self.job_description = job_description
         self.data = {}
-    
+
     def get_minor_attributes(self):
-        
+
         # Check for security clearance and sponsorship mentions
         self.data["clearance_lines"] = [
             line.strip() + "."
@@ -21,21 +22,35 @@ class InsightAnalysis:
             for line in self.job_description.split(".")
             if "sponsorship" in line.lower()
         ]
-    
+
     def get_major_attributes(self):
-        
+
         # Extract entities from the resume
         self.data["jd_skills"] = Parser().extract_skills(self.job_description, "jd")
 
         self.data["resume_skills"] = Parser().extract_skills(self.text, "resume")
 
-        self.data["matching_skills"] = set(self.data["resume_skills"]).intersection(set(self.data["jd_skills"]))
+        self.data["matching_skills"] = set(self.data["resume_skills"]).intersection(
+            set(self.data["jd_skills"])
+        )
 
-        self.data["unmatched_skills"] = set(self.data["jd_skills"]).difference(set(self.data["resume_skills"]))
+        self.data["unmatched_skills"] = set(self.data["jd_skills"]).difference(
+            set(self.data["resume_skills"])
+        )
 
         try:
             self.data["match_percentage"] = (
-                str(round((len(self.data["matching_skills"]) / len(self.data["jd_skills"]) * 100), 2)) + "%"
+                str(
+                    round(
+                        (
+                            len(self.data["matching_skills"])
+                            / len(self.data["jd_skills"])
+                            * 100
+                        ),
+                        2,
+                    )
+                )
+                + "%"
             )
         except ZeroDivisionError:
             logging.error("No skills found in the job description")
@@ -67,7 +82,7 @@ class InsightAnalysis:
         }
 
         return insights
-    
+
     def analyze(self):
         self.get_minor_attributes()
         self.get_major_attributes()

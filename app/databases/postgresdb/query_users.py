@@ -3,7 +3,6 @@ from app.databases.postgresdb.models import User
 import app.databases.postgresdb.schemas as schemas
 from sqlalchemy.exc import IntegrityError
 from app.databases.postgresdb.authentication import get_password_hash
-from sqlalchemy import func
 
 
 class DuplicateError(Exception):
@@ -25,7 +24,8 @@ def add_user(db: Session, user: schemas.UserSignUp, provider: str = None):
         username=user.username,
         password=password,
         fullname=user.fullname,
-        provider=provider
+        provider=provider,
+        picture=user.picture
     )
     try:
         db.add(user)

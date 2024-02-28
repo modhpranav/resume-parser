@@ -1,22 +1,39 @@
 version: '3.8'
 services:
+  pgdb:
+    image: postgres:15-alpine
+    container_name: postgresdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DBNAME}
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DBNAME}
+
   web:
     build: .
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --port 80
     container_name: resume_parser_web
     volumes:
       - ./uploads:/src/staticfiles/uploads
       - ./app/config:/src/app/config
     ports:
-      - "8000:8000"
-  
-  pgdb:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: pranav
-      POSTGRES_PASSWORD: admin@123
-      POSTGRES_DB: mydatabase
+      - "80:80"
+    depends_on:
+      - pgdb
+      - mongodb
+    
+    
 volumes:
   postgres_data:
+  mongo_data:

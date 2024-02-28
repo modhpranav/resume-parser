@@ -31,7 +31,8 @@ document.getElementById('getinsights').addEventListener('click', async function(
         }),
     })
     .then(response => response.json())
-    .then(data => {
+    .then(insights => {
+        const data = insights['insights']
         document.querySelector('.matchpercent').textContent = data.match_percentage;
         if (data.match_percentage < 30) {
             document.querySelector('.matchpercentcss').style.color = "white";
