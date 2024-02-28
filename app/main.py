@@ -2,7 +2,7 @@ import os
 from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
-from app.routers import features, google_auth, templates
+from app.routers import features, google_auth, templates, github_auth
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
@@ -41,7 +41,7 @@ app.add_middleware(
 app.include_router(templates.router)
 app.include_router(google_auth.router)
 app.include_router(features.router)
-
+app.include_router(github_auth.router)
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(

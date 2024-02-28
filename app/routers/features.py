@@ -106,6 +106,10 @@ def insert_job_posting(
     status: str = Body(..., embed=True),
     user: User = Depends(get_current_user),
 ):
+    if not user:
+        return HTTPException(status_code=401, detail="Please log in to use this feature.")
+    else:
+        content = {"user": user.as_dict}
     try:
         data = {
             "userid": user.id,
