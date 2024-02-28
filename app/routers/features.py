@@ -24,7 +24,8 @@ async def parse_pdf(
     request: Request,
     pdf_file: UploadFile = File(...),
     user: User = Depends(get_current_user),
-):
+):  
+    print("Request recieved")
     content = {}
     if user:
         content["user"] = user.as_dict
@@ -48,6 +49,7 @@ async def parse_pdf(
         return JSONResponse(
             content={"pdf_path": f"/{save_path}", "resume_text": text},
             media_type="application/json",
+            status_code=200,
         )
     except Exception as e:
         logging.error(e)
@@ -67,7 +69,7 @@ async def analyze_match(
     try:
         insights = InsightAnalysis(resume_text, job_description).analyze()
         content["insights"] = insights
-        return JSONResponse(content=content, media_type="application/json")
+        return JSONResponse(content=content, status_code=200, media_type="application/json")
     except Exception as e:
         logging.error(e)
         content["error"] = str(e)
@@ -89,7 +91,7 @@ async def get_skills_from_text(
             text = request.session["resume_text"]
         skills = Parser().extract_skills(text, text_type)
         content["skills"] = skills
-        return JSONResponse(content=content, media_type="application/json")
+        return JSONResponse(content=content, media_type="application/json", status_code=200)
     except Exception as e:
         logging.error(e)
         content["error"] = str(e)
@@ -120,7 +122,7 @@ def insert_job_posting(
             "jobtitle": jobtitle,
         }
         content = create_user_application(data)
-        return JSONResponse(content=content, media_type="application/json")
+        return JSONResponse(content=content, status_code=200,  media_type="application/json")
     except Exception as e:
         logging.error(e)
         content["error"] = str(e)
@@ -140,7 +142,7 @@ def post_update_job_status(
         content = {}
     try:
         content = update_user_application_status({"id": id, "status": status})
-        return JSONResponse(content=content, media_type="application/json")
+        return JSONResponse(content=content, status_code=200,  media_type="application/json")
     except Exception as e:
         logging.error(e)
         print(e)

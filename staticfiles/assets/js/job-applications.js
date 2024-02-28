@@ -3,53 +3,57 @@ const rowsPerPage = 10;
 let currentPage = 1;
 
 function renderTable(page) {
-    const startIndex = (page - 1) * rowsPerPage;
-    const endIndex = startIndex + rowsPerPage;
-    const slicedData = data.slice(startIndex, endIndex);
-    
-    const tableBody = document.getElementById('jobapptable').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = ''; // Clear existing rows
+    try{
+        const startIndex = (page - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const slicedData = data.slice(startIndex, endIndex);
+        
+        const tableBody = document.getElementById('jobapptable').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = ''; // Clear existing rows
 
-    slicedData.forEach(row => {
+        slicedData.forEach(row => {
 
-        const tr = document.createElement('tr');
-        tr.setAttribute("scope", "row");
+            const tr = document.createElement('tr');
+            tr.setAttribute("scope", "row");
 
-        const applicationDateCell = document.createElement('td');
-        applicationDateCell.textContent = row["Application Date"];
-        tr.appendChild(applicationDateCell);
+            const applicationDateCell = document.createElement('td');
+            applicationDateCell.textContent = row["Application Date"];
+            tr.appendChild(applicationDateCell);
 
-        const applicationLinkCell = document.createElement('td');
-        applicationLinkCell.innerHTML = `<a href="${row["Application Link"]}">Application Portal</a>`;
-        tr.appendChild(applicationLinkCell);
+            const applicationLinkCell = document.createElement('td');
+            applicationLinkCell.innerHTML = `<a href="${row["Application Link"]}">Application Portal</a>`;
+            tr.appendChild(applicationLinkCell);
 
-        const companyNameCell = document.createElement('td');
-        companyNameCell.textContent = row["Company Name"];
-        tr.appendChild(companyNameCell);
+            const companyNameCell = document.createElement('td');
+            companyNameCell.textContent = row["Company Name"];
+            tr.appendChild(companyNameCell);
 
-        const jobTitleCell = document.createElement('td');
-        jobTitleCell.textContent = row["Job Title"];
-        tr.appendChild(jobTitleCell);
+            const jobTitleCell = document.createElement('td');
+            jobTitleCell.textContent = row["Job Title"];
+            tr.appendChild(jobTitleCell);
 
-        const jobDescriptionCell = document.createElement('td');
-        jobDescriptionCell.textContent = row["Job Description"];
-        tr.appendChild(jobDescriptionCell);
+            const jobDescriptionCell = document.createElement('td');
+            jobDescriptionCell.textContent = row["Job Description"];
+            tr.appendChild(jobDescriptionCell);
 
 
-        const statusCell = document.createElement('td');
-const statusDropdown = `<select class="status-select btn btn-light status-dropdown">
-                ${statuses.map(status =>
-    `<option value="${row.id}" ${row["Status"] === status ? 'selected' : ''}>${status}</option>`
-).join('')}
-            </select>`;
-statusCell.innerHTML = statusDropdown;
-tr.appendChild(statusCell);
+            const statusCell = document.createElement('td');
+    const statusDropdown = `<select class="status-select btn btn-light status-dropdown">
+                    ${statuses.map(status =>
+        `<option value="${row.id}" ${row["Status"] === status ? 'selected' : ''}>${status}</option>`
+    ).join('')}
+                </select>`;
+    statusCell.innerHTML = statusDropdown;
+    tr.appendChild(statusCell);
 
-tableBody.appendChild(tr);
-    });
+    tableBody.appendChild(tr);
+        });
 
-renderPagination(page);
+    renderPagination(page);
+    }catch{
+        alertMessage('Failed to render table', 'alert-danger');
     }
+}
 
 function renderPagination(currentPage) {
     let dataLength = data.length;
@@ -91,8 +95,6 @@ document.addEventListener('change', function(e) {
     if (e.target.classList.contains('status-dropdown')) {
         var status = e.target.options[e.target.selectedIndex].textContent;
         var id = e.target.value;
-        // Perform AJAX request to update status in the backend
-        console.log('Update status for ID:', id, 'to', status);
         // Add your AJAX call here
         fetch('/update-job-status', {
             method: 'POST',
@@ -106,37 +108,53 @@ document.addEventListener('change', function(e) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
-            if (data.status_code === 200) {
+            if (data.status === 200) {
                 // Update the dropdown options
                 var options = e.target.options;
                 for (var i = 0; i < options.length; i++) {
                     options[i].selected = options[i].textContent === status;
                 }
             }
-            alertMessage('Job Status Updated');
+            if (status === 'Applied') {
+            alertMessage('Job Status Updated.');
+            } else if (status === 'Interviewing') {
+            alertMessage('Congrats on getting interview, Good Luck!');
+            }else if (status === 'Rejected') {
+            alertMessage('Sorry to hear that, Keep applying!');
+            }else if (status === 'Offer') {
+            alertMessage('Congrats on the offer, Good Luck!');
+            }else if (status === 'Accepted') {
+            alertMessage('Congrats on the new job, Good Luck!');
+            }else{
+            alertMessage('Job Status Updated.');
+            }
+
         })
         .catch((error) => {
             console.error('Error:', error);
-            alertMessage('Can you please try again?');
+            alertMessage('Failed to update status, Can you please try again?');
         });
     }
 });
 
 document.getElementById('statusFilter').addEventListener('change', function() {
-    const selectedStatus = this.value;
-    const allRows = document.querySelectorAll('#jobapptable tbody tr');
+    try{
+        const selectedStatus = this.value;
+        const allRows = document.querySelectorAll('#jobapptable tbody tr');
 
-    allRows.forEach(row => {
-        const statusDropdown = row.querySelector('select.status-select');
-        const statusCellText = statusDropdown.options[statusDropdown.selectedIndex].text;
+        allRows.forEach(row => {
+            const statusDropdown = row.querySelector('select.status-select');
+            const statusCellText = statusDropdown.options[statusDropdown.selectedIndex].text;
 
-        // If 'all' is selected or the row's status matches the selected filter, show the row
-        if (selectedStatus === 'all' || statusCellText === selectedStatus) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none'; // Hide rows that do not match the filter
-        }
-    });
-    renderPagination(1);
+            // If 'all' is selected or the row's status matches the selected filter, show the row
+            if (selectedStatus === 'all' || statusCellText === selectedStatus) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none'; // Hide rows that do not match the filter
+            }
+        });
+        renderPagination(1);
+    }catch{
+        alertMessage('Failed to filter table', 'alert-danger');
+    }
 });

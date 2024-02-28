@@ -97,9 +97,8 @@ body {
 .notification {
   position: fixed;
   right: 20px;
-  bottom: 90%; /* Adjust this value to control how low the pop-out appears */
-  background-color: #4CAF50;
-  color: white;
+  top: 50px; /* Adjust this value to control how low the pop-out appears */
+  /* color: white; */
   padding: 10px 20px;
   border-radius: 5px;
   display: none; /* Initially hidden */
@@ -108,7 +107,6 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition for pop effect */
   transform: translateX(100%); /* Start hidden to the right */
   opacity: 0;
-  top: 20px;
 }
 
 /* Additional class to apply for showing the notification */

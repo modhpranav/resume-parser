@@ -183,5 +183,30 @@
     "7dc342ae495f8afa39c971babb59f05e0e4d4385867589603a815b2651fb9dd8": [
         "python"
     ],
-    "38a0963a6364b09ad867aa9a66c6d009673c21e182015461da236ec361877f77": []
+    "38a0963a6364b09ad867aa9a66c6d009673c21e182015461da236ec361877f77": [],
+    "29d23f0badc36ad81fae847e729a72cbaa6fb3b78b8ad5504177ff8df8ec9f0d": [
+        "mongodb",
+        "natural language processing",
+        "front end",
+        "web application",
+        "html",
+        "pdf",
+        "spacy",
+        "browser extension",
+        "css",
+        "com",
+        "game development",
+        "ios development",
+        "user experience",
+        "postgresql",
+        "javascript",
+        "machine learning",
+        "web development",
+        "github",
+        "ar development",
+        "web service"
+    ],
+    "503fa7cf4c630be330ded14b179cf5b15e6353be3c48c6953f769aa6b01520eb": [
+        "python"
+    ]
 }

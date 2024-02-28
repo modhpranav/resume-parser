@@ -1,7 +1,7 @@
 import os
 
 from fastapi import Depends, APIRouter, Request, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from app.databases.postgresdb.authentication import get_current_user
 from app.databases.postgresdb.models import User
@@ -21,35 +21,35 @@ router = APIRouter()
 def get(request: Request, user: User = Depends(get_current_user)):
     print("Request recieved")
     return templates.TemplateResponse(
-        "resume-parser.html", context={"request": request, "user": user}
+        "resume-parser.html", context={"request": request, "user": user}, status_code=200
     )
 
 
 @router.get("/job-desc/")
 def get_skills(request: Request, user: User = Depends(get_current_user)):
     return templates.TemplateResponse(
-        "get-skills.html", context={"request": request, "user": user}
+        "get-skills.html", context={"request": request, "user": user}, status_code=200
     )
 
 
 @router.get("/my-resume/")
 def get_resume(request: Request, user: User = Depends(get_current_user)):
     return templates.TemplateResponse(
-        "resume-parser.html", context={"request": request, "user": user}
+        "resume-parser.html", context={"request": request, "user": user}, status_code=200
     )
 
 
 @router.get("/get-insights/")
 def get_insightstemplate(request: Request, user: User = Depends(get_current_user)):
     return templates.TemplateResponse(
-        "resume-insights.html", context={"request": request, "user": user}
+        "resume-insights.html", context={"request": request, "user": user}, status_code=200
     )
 
 
 @router.get("/contact-us/")
 def get_insightstemplate(request: Request, user: User = Depends(get_current_user)):
     return templates.TemplateResponse(
-        "pages-contact.html", context={"request": request, "user": user}
+        "pages-contact.html", status_code=200, context={"request": request, "user": user}
     )
 
 
@@ -77,10 +77,12 @@ def get_job_applications(request: Request, user: User = Depends(get_current_user
                 "user": user,
                 "data": data,
                 "statuses": list(JobStatus),
-            },
+            }, status_code=200
         )
     except Exception as e:
-        return {"status_code": 500, "message": str(e)}
+        return JSONResponse(
+            content={"error": str(e)}, media_type="application/json", status_code=500
+        )
 
 
 @router.get("/logout/")
