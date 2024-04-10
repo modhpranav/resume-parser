@@ -2,7 +2,10 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
     e.preventDefault();
     const formData = new FormData();
     formData.append('pdf_file', document.getElementById('formFile').files[0]);
-    
+    if (formData.get('pdf_file') === "undefined"){
+        alertMessage('Please upload a file', 'alert-warning');
+        return;
+    }
     const spinner = document.querySelector('.spinner-grow');
     const submitButton = document.getElementById('submit'); // Ensure your button has this ID.
     const uparrow = document.querySelector('#uploadarrow');
@@ -15,14 +18,13 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
         body: formData,
     });
     
-    if (response.ok) {
+    if (response.ok & response.status === 200) {
         const result = await response.json();
         
         // Display PDF preview
         previewPDF(submitButton, spinner, uparrow, result);
         sessionStorage.setItem('pdf_path', result.pdf_path);
         const displayname = result.pdf_path.split('/').pop();
-        console.log(displayname);
         const resumenametags = document.getElementsByClassName('resumename')
         for (let i = 0; i < resumenametags.length; i++){
             resumenametags[i].innerHTML = `Uploaded Resume Name: ${displayname}`;
@@ -32,7 +34,8 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
         document.getElementById('extractedSkills').innerHTML = '';
         
     } else {
-        alert('Failed to parse PDF.');
+        console.log(response);
+        alertMessage("Failed to parse resume, try one more time or upload different resume.", 'alert-danger');
         submitButton.disabled = false;
         spinner.hidden = true;
         uparrow.hidden = false;
@@ -40,7 +43,6 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(sessionStorage.getItem('pdf_path'));
     if (sessionStorage.getItem('pdf_path') != null){
         const spinner = document.querySelector('.spinner-grow');
         const submitButton = document.getElementById('submit'); // Ensure your button has this ID.

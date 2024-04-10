@@ -14,7 +14,7 @@ document.getElementById('getJDTextButton').addEventListener('click', async funct
       body: JSON.stringify({ text: textInput.value }), // Send the text as JSON
     });
   
-    if (response.ok) {
+    if (response.ok && response.status === 200) {
       const result = await response.json();
       const skillsContainer = document.getElementById('extractedjdSkills');
       skillsContainer.innerHTML = '';
@@ -30,12 +30,13 @@ document.getElementById('getJDTextButton').addEventListener('click', async funct
       }else{
         submitbutton.disabled = false;
         spinner.hidden = true;
+        alertMessage('Failed to extract skills, please retry or try adding different description', 'alert-danger');
       }
 
     
 
     } else {
-      alert('Failed to extract data.');
+      alertMessage('Failed to extract skills, please retry or try adding different description', 'alert-danger');
       submitbutton.disabled = false;
       spinner.hidden = true;
     }

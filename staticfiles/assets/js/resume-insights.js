@@ -1,5 +1,4 @@
 document.getElementById('getinsights').addEventListener('click', async function(e) {
-    console.log("getinsights");
     e.preventDefault();
     const insightsButton = document.getElementById('getinsights');
     const jobDescriptionTextarea = document.getElementById('jobdescription');
@@ -12,7 +11,7 @@ document.getElementById('getinsights').addEventListener('click', async function(
     const jobDescription = jobDescriptionTextarea.value.trim();
 
     if (!resumePath || jobDescription === "") {
-        alert("Please upload your resume and fill in the job description.");
+        alertMessage("Please upload your resume and fill in the job description.", "alert-warning");
         return;
     }
 
@@ -30,8 +29,14 @@ document.getElementById('getinsights').addEventListener('click', async function(
             job_description: jobDescription,
         }),
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(response => {
+        if (!response.ok || response.status !== 200) {
+            throw new Error(`Failed to get insights.`);
+        }
+        return response.json();
+    })
+    .then(insights => {
+        const data = insights['insights']
         document.querySelector('.matchpercent').textContent = data.match_percentage;
         if (data.match_percentage < 30) {
             document.querySelector('.matchpercentcss').style.color = "white";
@@ -78,6 +83,6 @@ document.getElementById('getinsights').addEventListener('click', async function(
         spinner.hidden = true; // Hide loading spinner
         resetButton.disabled = false; // Enable reset button
         insightsButton.disabled = false; // Enable insights button
-        alert("Failed to get insights.");
+        alertMessage("Failed to get insights.", "alert-danger");
     });
 });

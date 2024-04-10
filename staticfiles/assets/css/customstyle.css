@@ -89,3 +89,50 @@ body {
   color: #2eca6a;
   background: #e0f8e9;
 }
+
+.status-select:hover, .page-button:hover {
+  cursor: pointer;
+}
+
+.notification {
+  position: fixed;
+  right: 20px;
+  top: 50px; /* Adjust this value to control how low the pop-out appears */
+  /* color: white; */
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none; /* Initially hidden */
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Adds a shadow for better visibility */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition for pop effect */
+  transform: translateX(100%); /* Start hidden to the right */
+  opacity: 0;
+}
+
+/* Additional class to apply for showing the notification */
+.notification-show {
+  display: block;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Animation for fading in and out */
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+
+.dropdown-button {
+  /* Default state */
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.dropdown-button:hover, .dropdown-button:focus {
+  /* Hover or focus state */
+  background-color: #ddd;
+  color: black;
+}

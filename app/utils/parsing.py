@@ -14,9 +14,9 @@ class Parser:
     def __init__(self):
         self.skills_path = {
             "jd": os.getenv("JD_SKILLS_STORAGE_PATH"),
-            "resume": os.getenv("RESUME_SKILLS_STORAGE_PATH")
+            "resume": os.getenv("RESUME_SKILLS_STORAGE_PATH"),
         }
-    
+
     @staticmethod
     def extract_text_from_pdf(pdf_file) -> str:
         # Extract text from PDF
@@ -39,9 +39,9 @@ class Parser:
                 if len(x["doc_node_value"]) > 1
             ]
             logging.info(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-            text = text.split(',')
+            text = text.split(",")
             for sentence in text:
-                sentence = sentence.split('\n')
+                sentence = sentence.split("\n")
                 for line in sentence:
                     if line and len(line) > 3:
                         data = TextProcessing(line).run()
@@ -50,10 +50,9 @@ class Parser:
             logging.info(set(skills))
             skills = Service.short_skill_filter(skills)
             data_json[text_hash] = list(set(skills))
-            with open(self.skills_path[skill_type], 'w') as file:
+            with open(self.skills_path[skill_type], "w") as file:
                 json.dump(data_json, file, indent=4)
             return skills
-
 
 
 class TextProcessing:
@@ -81,15 +80,16 @@ class TextProcessing:
         # Reconstruct the cleaned text
         text = " ".join(token.text for token in tokens)
         self.text = re.sub(r"\S+@\S+", "", text)
-        
 
     def fuzzy_matching(self):
         skills = []
         for keyword in skillList:
-            match = process.extractOne(keyword, [self.text], scorer=fuzz.WRatio, score_cutoff=95)
+            match = process.extractOne(
+                keyword, [self.text], scorer=fuzz.WRatio, score_cutoff=95
+            )
             if match:
                 skills.append(keyword)
-            for word in self.text.split(' '):
+            for word in self.text.split(" "):
                 if fuzz.WRatio(keyword, word) > 95:
                     skills.append(keyword)
         return skills

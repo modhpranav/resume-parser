@@ -12,6 +12,7 @@ class User(Base):
     fullname = Column(String, nullable=True)
     skills = Column(String, nullable=True)
     resume = Column(String, nullable=True)
+    picture = Column(String, nullable=True)
     register_date = Column(DateTime, default=func.now())
     __table_args__ = (UniqueConstraint('username', 'provider', name='unique_username_per_provider'),)
 
