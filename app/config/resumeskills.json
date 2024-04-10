@@ -146,5 +146,14 @@
         "job description",
         "case",
         "agile software development"
+    ],
+    "bb7393283cb60694cfceb373350a0d678dc0fc8ed08abfbc7e5f8cdb5c96e89d": [
+        "python",
+        "docker",
+        "aws",
+        "java"
+    ],
+    "c986051d5a70dea78a396fea07e7e220ba96c190ea5969da84001af54b76016c": [
+        "python"
     ]
 }

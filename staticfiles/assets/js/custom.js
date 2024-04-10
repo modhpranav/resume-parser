@@ -61,7 +61,7 @@ function previewPDF(submitButton, spinner, uparrow, result){
 
 async function getSkills(){
 
-    if (localStorage.getItem('pdf_path') == ''){
+    if (sessionStorage.getItem('pdf_path') == ''){
         alert('Please upload a resume first');
         return;
     }
@@ -79,7 +79,7 @@ async function getSkills(){
 
     const response = await fetch('/get-skills/', {
         method: 'POST',
-        body: JSON.stringify({text: localStorage.getItem('resume_text')}),
+        body: JSON.stringify({text: sessionStorage.getItem('resume_text')}),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -108,5 +108,16 @@ async function getSkills(){
         spinner.hidden = true;
         uparrow.hidden = false;
         extractbutton.disabled = false;
+    }
+}
+
+window.onload = function() {
+    if (sessionStorage.getItem('pdf_path') != null){
+        const displayname = sessionStorage.getItem('pdf_path').split('/').pop();
+        console.log(displayname);
+        const resumenametags = document.getElementsByClassName('resumename')
+        for (let i = 0; i < resumenametags.length; i++){
+            resumenametags[i].innerHTML = displayname;
+        }
     }
 }

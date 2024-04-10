@@ -18,6 +18,13 @@
         <span>Job Analysis</span>
       </a>
     </li><!-- End Contact Page Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{{ '/job-applications' }}">
+        <i class="ri-article-line"></i>
+        <span>My Applications</span>
+      </a>
+    </li>
+  
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="{{ '/job-desc' }}">
@@ -41,7 +48,7 @@
       <li class="breadcrumb-item active">Job Analysis</li>
     </ol>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">We know extraction speed sucks, we are working on scaling!!</li>
+      <li class="breadcrumb-item"><span class="badge border-secondary border-1 text-secondary">Resume: </span><span class="badge border-success border-1 text-success resumename">-</span></li> 
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -120,10 +127,10 @@
                     </div>
                   </div>
                   <div class="text-center">
-                    <button id="getinsights" class="btn btn-primary">
+                    <button id="getinsights" class="btn btn-outline-info">
                       <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" hidden></span>
                       Analyze</button>
-                    <button name="reset" type="reset" class="btn btn-secondary">Reset</button>
+                    <button name="reset" type="reset" class="btn btn-outline-secondary">Reset</button>
                   </div>
                 </form>
             </div>

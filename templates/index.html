@@ -57,9 +57,45 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+
+          {% if user %}
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">
+              {{ user.fullname }}
+              {% else %}
+              <a class="nav-link collapsed" href="{{ '/google/login' }}">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login/SignUp</span>
+              </a>
+              {% endif %}
+            </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          {% if user %}
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>
+              {{ user.fullname }}
+              </h6>
+              <span>Next Big Thing</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{{ '/logout' }}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+          {% endif %}
+        </li><!-- End Profile Nav -->
+
       </ul>
     </nav><!-- End Icons Navigation -->
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -83,6 +119,13 @@
           <span>Job Analysis</span>
         </a>
       </li><!-- End Contact Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ '/job-applications' }}">
+          <i class="ri-article-line"></i>
+          <span>My Applications</span>
+        </a>
+      </li>
+    
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ '/job-desc' }}">
