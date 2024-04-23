@@ -26,4 +26,7 @@ EXPOSE 80
 # Copy the current directory contents into the container at /app
 COPY ./ /src
 
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--reload"]

@@ -106,5 +106,19 @@
     "44bc91adaec0ada3b5c765bde0149a6fb6549036cc4086095a8831f5289488d9": [
         "java",
         "python"
+    ],
+    "ba4ac4a4759d96eda7a1d9174ff94b1f1797ed058b012f2acc3ede620af9ffcc": [
+        "python",
+        "c++",
+        "data engineer",
+        "front end",
+        "application development",
+        "typescript",
+        "javascript",
+        "computer science",
+        "data structure",
+        "storage system",
+        "secret clearance",
+        "data integration"
     ]
 }
