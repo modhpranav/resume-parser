@@ -19,7 +19,7 @@ document.getElementById('getinsights').addEventListener('click', async function(
     resetButton.disabled = true; // Disable reset button
     insightsButton.disabled = true; // Disable insights button
 
-    fetch('/analyze-match', {
+    fetch('/analyze-match/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

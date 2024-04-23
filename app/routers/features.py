@@ -24,7 +24,7 @@ async def parse_pdf(
     request: Request,
     pdf_file: UploadFile = File(...),
     user: User = Depends(get_current_user),
-):  
+):
     print("Request recieved")
     content = {}
     if user:
@@ -64,6 +64,7 @@ async def analyze_match(
     user: User = Depends(get_current_user),
 ):
     content = {}
+    print("Requested for Analysis")
     if user:
         content["user"] = user.as_dict
     try:
@@ -73,6 +74,7 @@ async def analyze_match(
     except Exception as e:
         logging.error(e)
         content["error"] = str(e)
+        print("Error", str(e))
         raise HTTPException(status_code=500, detail=content)
 
 
