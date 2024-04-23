@@ -4,7 +4,13 @@
 Resume Parser is a web application designed to streamline the recruitment process by extracting skills from PDF resumes and comparing them against job descriptions. This tool provides insights such as matched skills, the percentage of match, and unmatched skills, aiding recruiters in making informed decisions.
 
 ## Web URL
-**[ResumeParser](http://13.233.142.200/)**
+**[ResumeParser](https://resumeparser.modhpranav.com)**
+
+
+
+https://github.com/modhpranav/resume-parser/assets/47596415/26bbb05b-1798-44db-a9ff-b523ee1b85d2
+
+
 
 ## Features
 - **Skill Extraction**: Automatically extracts skills from PDF resumes.
