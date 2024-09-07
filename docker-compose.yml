@@ -1,5 +1,5 @@
-version: '3.8'
 services:
+
   pgdb:
     image: postgres:15-alpine
     container_name: postgresdb
@@ -22,18 +22,41 @@ services:
 
   web:
     build: .
-    command: uvicorn app.main:app --host 0.0.0.0 --port 80
     container_name: resume_parser_web
     volumes:
       - ./uploads:/src/staticfiles/uploads
       - ./app/config:/src/app/config
-    ports:
-      - "80:80"
+    expose:
+      - 8000
     depends_on:
       - pgdb
       - mongodb
-    
-    
+    labels:  # new
+      - "traefik.enable=true"
+      - "traefik.http.routers.fastapi.rule=Host(`resumeparser.modhpranav.com`)"
+      - "traefik.http.routers.fastapi.tls=true"
+      - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
+  
+  traefik:  # new
+    build:
+      context: .
+      dockerfile: Dockerfile.traefik
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik-public-certificates:/certificates"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard-resumeparser.modhpranav.com`) && (PathPrefix(`/`)"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=testuser:$$apr1$$jIKW.bdS$$eKXe4Lxjgy/rH65wP1iQe1"
+
 volumes:
   postgres_data:
   mongo_data:
+  traefik-public-certificates:

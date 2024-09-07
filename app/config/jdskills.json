@@ -106,5 +106,9 @@
     "44bc91adaec0ada3b5c765bde0149a6fb6549036cc4086095a8831f5289488d9": [
         "java",
         "python"
+    ],
+    "2791df4711ca208a24075de70e7400ebfc3e8fe1248a641fcd7a2f9290f59250": [
+        "docker",
+        "python"
     ]
 }
