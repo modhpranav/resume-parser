@@ -21,6 +21,14 @@ dashboard = true
   [providers.docker]
     exposedByDefault = false
 
+<<<<<<< HEAD
+=======
+[tls.certificates]
+  certFile = "cert.pem"
+  keyFile = "key.pem"
+
+
+>>>>>>> main
 [certificatesResolvers.letsencrypt.acme]
   email = "hello@modhpranav.com"
   storage = "/certificates/acme.json"
