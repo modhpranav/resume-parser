@@ -29,4 +29,3 @@ COPY ./ /src
 WORKDIR /src/app
 
 CMD ["fastapi", "run", "--port", "80"]
-
