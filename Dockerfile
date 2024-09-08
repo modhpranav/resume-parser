@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python -m spacy download en_core_web_sm
 
 # Make port 8000 available to the world outside this container
-EXPOSE 8000
+EXPOSE 80
 
 # Copy entrypoint script
 # COPY entrypoint.sh /usr/local/bin/
@@ -28,4 +28,4 @@ COPY ./ /src
 
 WORKDIR /src/app
 
-CMD ["fastapi", "run"]
+CMD ["fastapi", "run", "--port", "80"]
